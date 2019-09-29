@@ -165,7 +165,9 @@ class Game:
 
         real_entities.add(player1, player2)
         real_entities.add(part.Torso())
-        visuals.add(pobject.pobject())
+        test = pobject.pobject()
+        visuals.add(test)
+        test.x_velocity = 6
 
         # initial crate
         real_entities.add(entity.Crate(600, 0, visuals, volume))

@@ -38,17 +38,18 @@ class pobject(pygame.sprite.Sprite):
     def __init__(self):
 
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.Surface([10, 40])
-        self.image.fill((255, 255, 200))
-        self.rect = self.image.get_rect()
+        self.texture = pygame.image.load("assets/animations/example_player/0.png")
+        # self.texture.fill((255, 255, 200))
+        self.image = self.texture.copy()
+        self.rect = self.texture.get_rect()
         self.x_velocity = 0
         self.y_velocity = 0
         self.rotational_velocity = 0
-        self.rotation = 0
+        self.rotation = math.pi / 4
         self.points = [(0, 0), (0, 40), (10, 0), (10, 40)]
         self.center = 5, 20
 
-        self.rect.x, self.rect.y = 500, 100
+        self.rect.x, self.rect.y = 500, 400
 
     def colliding(self):
 
@@ -82,11 +83,14 @@ class pobject(pygame.sprite.Sprite):
                     c = "w"
         print(c)"""
 
-
     def update(self):
 
         if -20 < self.y_velocity:
             self.y_velocity -= .2
+        x, y = self.center
+        print(math.degrees(self.rotation))
+        self.image = pygame.transform.rotate(self.texture, math.degrees(self.rotation))
         self.colliding()
         self.rect.x += self.x_velocity
         self.rect.y -= self.y_velocity
+        self.rotation += self.rotational_velocity
