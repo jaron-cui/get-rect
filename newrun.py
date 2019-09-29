@@ -1,5 +1,5 @@
 import pygame
-from src import terrain, display, entity, part
+from src import terrain, display, entity, part, pobject
 import random
 
 # global reference, static variables
@@ -154,7 +154,7 @@ class Game:
         world.generate(10)
         world.initialize()
         entity.terrain = world
-        entity.collision_bounds = world.collision_bounds
+        pobject.terrain = world
 
         # player 1 and 2 are spawned
         player1 = entity.Player(200, 0, 100, [particles, visuals, real_entities], 0, 0, "example_player", world, volume)
@@ -165,6 +165,7 @@ class Game:
 
         real_entities.add(player1, player2)
         real_entities.add(part.Torso())
+        visuals.add(pobject.pobject())
 
         # initial crate
         real_entities.add(entity.Crate(600, 0, visuals, volume))
@@ -181,8 +182,10 @@ class Game:
         # time between crate spawns
         drop = 1000
         done = False
-        player1.add_items("dynamite", 99)
+        player2.add_items("dynamite", 99)
+        player2.add_items("fireworks", 99)
         player1.add_items("log", 99)
+        player2.add_items("log", 99)
         while not done:
             clock.tick(60)
 
@@ -263,10 +266,11 @@ class Game:
             particles.update()
             real_entities.update()
 
-            visuals.draw(window)
             particles.draw(window)
             real_entities.draw(window)
             blocks.draw(window)
+            visuals.draw(window)
+
 
             pygame.display.update()
 

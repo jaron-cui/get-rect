@@ -13,7 +13,6 @@ gravity = -1
 fall_limit = -40
 
 volume = {"soft_land": .15, "hard_land": .5, "slash": 2, "crate_hit": .5, "equip_trowel": .25, "trowel_dig": .5,  "trowel_fail": .5}
-collision_bounds = []
 terrain = None
 
 
@@ -136,22 +135,17 @@ class Entity(pygame.sprite.Sprite):
         upper_x = (self.rect.x + self.hitbox_x + 7) // 16
         lower_y = int((self.rect.y + 2 * self.hitbox_y) // 16)
         upper_y = self.rect.y // 16
-        if lower_x < 1 or lower_x >= terrain.length:
-            lower_x = 1
-        if upper_x < 1 or upper_x >= terrain.length:
-            upper_x = 1
-        if lower_y < 1 or lower_y >= terrain.height:
-            lower_y = 1
-        if upper_y < 1 or upper_y >= terrain.height:
-            upper_y = 1
-        if direction == "+x":
-            return collision_bounds["left"][lower_y - 1][upper_x] or collision_bounds["left"][upper_y][upper_x]
-        elif direction == "-x":
-            return collision_bounds["right"][lower_y - 1][lower_x] or collision_bounds["right"][upper_y][lower_x]
-        elif direction == "+y":
-            return collision_bounds["bottom"][upper_y][lower_x] or collision_bounds["bottom"][upper_y][upper_x]
-        elif direction == "-y":
-            return collision_bounds["top"][lower_y][lower_x] or collision_bounds["top"][lower_y][upper_x]
+        try:
+            if direction == "+x":
+                return terrain.world[lower_y - 1][upper_x] != 0 or terrain.world[upper_y][upper_x] != 0
+            elif direction == "-x":
+                return terrain.world[lower_y - 1][lower_x] != 0 or terrain.world[upper_y][lower_x] != 0
+            elif direction == "+y":
+                return terrain.world[upper_y][lower_x] != 0 or terrain.world[upper_y][upper_x] != 0
+            elif direction == "-y":
+                return terrain.world[lower_y][lower_x] != 0 or terrain.world[lower_y][upper_x] != 0
+        except IndexError:
+            return False
 
     def friction(self):
 

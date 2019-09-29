@@ -50,7 +50,7 @@ class World:
         self.length = length
         self.height = height
 
-    def calculate_collision_bounds(self):
+    """def calculate_collision_bounds(self):
         top = []
         bottom = []
         left = []
@@ -88,7 +88,7 @@ class World:
         self.collision_bounds["bottom"] = bottom
         self.collision_bounds["left"] = left
         self.collision_bounds["right"] = right
-        print("calculated collision bounds")
+        print("calculated collision bounds")"""
 
     def load(self, filename):
         """loads an existing file into the self.world matrix"""
@@ -163,7 +163,7 @@ class World:
                 if material != 0:
                     new_block = Block(material, y, x)
                     self.blocks.add(new_block)
-        self.calculate_collision_bounds()
+        # self.calculate_collision_bounds()
 
     def destroy(self, x, y, guarantee_radius, secondary_radius):
         """with x, y at the center, guarantee radius is the radius in blocks that are always destroyed
@@ -200,7 +200,7 @@ class World:
 
                     block.kill()
 
-        self.calculate_collision_bounds()
+        # self.calculate_collision_bounds()
 
         return broken  # informing the caller whether or not any blocks were broken
 
@@ -212,7 +212,7 @@ class World:
             self.world[y][x] = 1
             block = Block(1, x, y)
             self.blocks.add(block)
-            self.calculate_collision_bounds()
+            # self.calculate_collision_bounds()
             return True
         else:
             return False
