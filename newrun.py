@@ -127,7 +127,8 @@ class GUI:
                             pygame.mixer.music.fadeout(1200)
                             pygame.mixer.music.load("assets/sounds/level.mp3")
                             pygame.mixer.music.play(-1)
-                            game = Game(window, sfx_volume, visuals)
+                            while True:
+                                game = Game(window, sfx_volume, visuals)
                             background.goto("title1")
                             pygame.mixer.music.load("assets/sounds/title.mp3")
                             pygame.mixer.music.play(-1)
@@ -243,8 +244,10 @@ class Game:
                         each.kill()
                     return
                 elif event.type == pygame.KEYDOWN and event.key == pygame.K_p:
+                    end_message.kill()
                     for each in real_entities:
-                        print(each.hitbox_y)
+                        each.kill()
+                    return
 
                 # players are given the events if they are alive
                 if player1.alive:

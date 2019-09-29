@@ -64,12 +64,12 @@ class pobject(pygame.sprite.Sprite):
                     self.rect.y = self.rect.y // 16 * 16
                     angle = to_angle(coordinates) + self.rotation
                     magnitude = sign(x) * math.tan(angle) * radius((x, y))
-                    horizontal_velocity = math.cos(angle) * self.rotational_velocity + self.x_velocity * friction
+                    horizontal_velocity = math.cos(angle) * self.rotational_velocity + self.x_velocity
                     vertical_velocity = self.rotational_velocity / math.sin(angle) + self.y_velocity
                     horizontal_rebound = horizontal_velocity * elasticity
                     vertical_rebound = vertical_velocity * elasticity
-                    angular_rebound = horizontal_velocity / math.cos(angle) * elasticity
-                    self.x_velocity = -horizontal_rebound
+                    angular_rebound = -horizontal_velocity * friction / math.cos(angle) * elasticity
+                    self.x_velocity = horizontal_rebound * (1 - friction)
                     self.y_velocity = -vertical_rebound
                     self.rotational_velocity = -angular_rebound
             except IndexError:
