@@ -151,8 +151,8 @@ class Game:
         blocks = pygame.sprite.Group()
 
         # generating the world
-        world = terrain.World(system_info.current_w//32, system_info.current_h//32 - 10, blocks)
-        world.generate(10)
+        world = terrain.World(system_info.current_w//32, system_info.current_h//32 - 16, blocks)
+        world.generate(30)
         world.initialize()
         entity.terrain = world
         pobject.terrain = world

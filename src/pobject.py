@@ -68,10 +68,10 @@ class pobject(pygame.sprite.Sprite):
                     vertical_velocity = self.rotational_velocity / math.sin(angle) + self.y_velocity
                     horizontal_rebound = horizontal_velocity * elasticity
                     vertical_rebound = vertical_velocity * elasticity
-                    angular_rebound = -horizontal_velocity * friction / math.cos(angle) * elasticity
+                    angular_rebound = self.rotational_velocity - horizontal_velocity * friction / math.cos(angle) - vertical_velocity * friction / math.sin(angle)
                     self.x_velocity = horizontal_rebound * (1 - friction)
                     self.y_velocity = -vertical_rebound
-                    self.rotational_velocity = -angular_rebound
+                    self.rotational_velocity = -angular_rebound * .2
             except IndexError:
                 pass
         if 0 <= x < len(terrain.world[0]) and 0 <= y < len(terrain.world) and terrain.world[int(y)][int(x)] != 0:
