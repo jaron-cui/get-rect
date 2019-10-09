@@ -2,9 +2,8 @@ class DopeSheet:
 
     def __init__(self):
 
-        test1 = [0, 300, 10, .1]
-        test2 = [400, 800, 10, .1]
-        test3 = []
+        test1 = [0, 300, 10, 0]
+        test2 = [300, 800, 0, 0]
         self.keyframes = [test1, test2]
         self.interpolations = []
         self.equation = 0
@@ -51,14 +50,17 @@ class DopeSheet:
 
     def interpolate(self):
 
-        self.interpolations = []
+        self.interpolations = [[self.keyframes[0][0], self.keyframes[0][2], self.keyframes[0][1]]]
 
         for index in range(len(self.keyframes) - 1):
 
             keyframe = self.keyframes[index]
             next_keyframe = self.keyframes[index + 1]
             interval = next_keyframe[0] - keyframe[0]
-            dominance = keyframe[3] / (keyframe[3] + next_keyframe[3])
+            if keyframe[3] + next_keyframe[3] == 0:
+                dominance = 0
+            else:
+                dominance = keyframe[3] / (keyframe[3] + next_keyframe[3])
 
             #  setting the location and slope of the interpolation based on the intensity
 
@@ -78,7 +80,6 @@ class DopeSheet:
             b = (3 * y - 2 * s1 * x - s2 * x), (x ** 2)
             c = s1
 
-            self.interpolations.append([keyframe[0], keyframe[2], keyframe[1]])
             self.interpolations.append([ease_lower_bound + keyframe[0], a, b, c, keyframe[1] + intercept])
             self.interpolations.append([ease_upper_bound + keyframe[0], next_keyframe[2], y + keyframe[1] + intercept])
 
