@@ -1,5 +1,5 @@
 import pygame
-from src import terrain, display, entity, part, pobject
+from src import terrain, display, entity, part, pobject, animation
 import random
 
 # global reference, static variables
@@ -165,7 +165,8 @@ class Game:
         player2.binding = {"left": "LEFT", "right": "RIGHT", "up": "UP", "sprint": "RCTRL", "use": "KP5", "adjust_greater": "KP6", "adjust_lower": "KP4", "escape": "KP7"}
 
         real_entities.add(player1, player2)
-        real_entities.add(part.Torso())
+        block = part.Torso()
+        real_entities.add(block)
         test = pobject.pobject()
         visuals.add(test)
         test.x_velocity = 6
@@ -189,6 +190,10 @@ class Game:
         player2.add_items("fireworks", 99)
         player1.add_items("log", 99)
         player2.add_items("log", 99)
+        x_coord = animation.DopeSheet()
+        x_coord.interpolate()
+        time = 0
+
         while not done:
             clock.tick(60)
 
@@ -265,6 +270,10 @@ class Game:
 
             # sky color
 
+            time += 1
+            player2.real_x = x_coord.at(time)
+            player2.real_y = 400
+
             window.fill((200, 255, 255))
 
             visuals.update()
@@ -275,7 +284,6 @@ class Game:
             real_entities.draw(window)
             blocks.draw(window)
             visuals.draw(window)
-
 
             pygame.display.update()
 

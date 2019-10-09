@@ -88,7 +88,6 @@ class pobject(pygame.sprite.Sprite):
         if -20 < self.y_velocity:
             self.y_velocity -= .2
         x, y = self.center
-        print(math.degrees(self.rotation))
         self.image = pygame.transform.rotate(self.texture, math.degrees(self.rotation))
         self.colliding()
         self.rect.x += self.x_velocity

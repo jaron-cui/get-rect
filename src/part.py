@@ -45,3 +45,7 @@ class Torso(entity.Entity):
             self.rotation_velocity -= rotation_friction
         elif self.rotation_velocity < 0:
             self.rotation_velocity += rotation_friction
+
+    def goto(self, x):
+
+        self.rect.x = x
