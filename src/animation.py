@@ -2,8 +2,9 @@ class DopeSheet:
 
     def __init__(self):
 
-        test1 = [0, 300, 1, .1]
+        test1 = [0, 300, 10, .1]
         test2 = [400, 800, 10, .1]
+        test3 = []
         self.keyframes = [test1, test2]
         self.interpolations = []
         self.equation = 0
@@ -65,8 +66,9 @@ class DopeSheet:
             ease_lower_bound = dominance * keyframe[3] * interval
             ease_upper_bound = interval - (1 - dominance) * next_keyframe[3] * interval
 
+            intercept = keyframe[2] * (ease_lower_bound - keyframe[0])
             x = ease_upper_bound - ease_lower_bound - keyframe[0]
-            y = next_keyframe[2] * (ease_upper_bound - next_keyframe[0]) - keyframe[2] * (ease_lower_bound - keyframe[0]) + next_keyframe[1] - keyframe[1]
+            y = next_keyframe[2] * (ease_upper_bound - next_keyframe[0]) - intercept + next_keyframe[1] - keyframe[1]
             s1 = keyframe[2]
             s2 = next_keyframe[2]
 
@@ -77,7 +79,7 @@ class DopeSheet:
             c = s1
 
             self.interpolations.append([keyframe[0], keyframe[2], keyframe[1]])
-            self.interpolations.append([ease_lower_bound + keyframe[0], a, b, c, keyframe[1]])
-            self.interpolations.append([ease_upper_bound + keyframe[0], next_keyframe[2], y + keyframe[1]])
+            self.interpolations.append([ease_lower_bound + keyframe[0], a, b, c, keyframe[1] + intercept])
+            self.interpolations.append([ease_upper_bound + keyframe[0], next_keyframe[2], y + keyframe[1] + intercept])
 
         print(self.interpolations)
