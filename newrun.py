@@ -165,11 +165,11 @@ class Game:
         player2.binding = {"left": "LEFT", "right": "RIGHT", "up": "UP", "sprint": "RCTRL", "use": "KP5", "adjust_greater": "KP6", "adjust_lower": "KP4", "escape": "KP7"}
 
         real_entities.add(player1, player2)
-        block = part.Torso()
-        real_entities.add(block)
-        test = pobject.pobject()
-        visuals.add(test)
-        test.x_velocity = 6
+        #block = part.Torso()
+        #real_entities.add(block)
+        #test = pobject.pobject()
+        #visuals.add(test)
+        #test.x_velocity = 6
 
         # initial crate
         real_entities.add(entity.Crate(600, 0, visuals, volume))
@@ -271,8 +271,8 @@ class Game:
             # sky color
 
             time += 1
-            player2.real_x = x_coord.at(time)
-            player2.real_y = 400
+            #player2.real_x = x_coord.at(time)
+            #player2.real_y = 400
 
             window.fill((200, 255, 255))
 

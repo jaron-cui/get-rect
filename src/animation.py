@@ -41,6 +41,7 @@ class DopeSheet:
             x = time - coefficients[0]
             an, ad = coefficients[1]
             bn, bd = coefficients[2]
+            filter()
 
             return an * (x ** 3) / ad + bn * (x ** 2) / bd + coefficients[3] * x + coefficients[4]
 
